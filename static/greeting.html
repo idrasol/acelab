@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 인사말씀 작성기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 min-h-screen">
+
+  <!-- 네비게이션 바 -->
+  <nav class="w-full bg-gradient-to-r from-blue-800 to-blue-600 shadow-lg border-b-2 border-white/40 fixed top-0 left-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+      <a href="index.html" class="text-white font-extrabold text-lg tracking-tight">AI 공공문서 서비스</a>
+      <ul class="flex space-x-4">
+        <li><a href="/static/press.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">보도자료 생성기</a></li>
+        <li><a href="/static/greeting.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">인사말씀 작성기</a></li>
+        <li><a href="/static/congrats.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">축사 작성기</a></li>
+        <li><a href="/static/news.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">부처별 최신 뉴스 검색기</a></li>
+        <li><a href="/static/chatbot.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">AI챗봇</a></li>
+      </ul>
+    </div>
+  </nav>
+
+    <!-- 타이틀 카드 -->
+  <div class="max-w-6xl mx-auto px-6 flex flex-col items-center py-8 mt-20 bg-gradient-to-r from-blue-700 to-blue-500 rounded-2xl shadow-xl border-2 border-white/70 mb-8">
+    <img src="/static/Republic_of_Korea.svg" alt="대한민국정부 로고"
+        class="w-20 h-20 rounded-full bg-white shadow mb-2 fade-in fade-in-delay-1" />
+    <h1 class="text-2xl md:text-3xl font-extrabold text-white drop-shadow tracking-tight mb-1 fade-in fade-in-delay-2">
+      AI 인사말씀 작성기
+    </h1>
+    <p class="text-blue-100 text-sm md:text-lg fade-in fade-in-delay-3 text-center">
+      행사에 어울리는 인사말씀을 쉽고 빠르게 작성하세요!
+    </p>
+  </div>
+
+  <!-- 본문 2분할 -->
+  <main class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
+    
+    <!-- 좌측: 축사 입력 폼 -->
+    <section class="bg-white/90 w-full md:w-1/2 p-6 rounded-2xl shadow-xl">
+      <form id="speech-form" class="space-y-4">
+        <input type="text" name="speaker" placeholder="작성자명" required
+          class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 placeholder-blue-300 text-blue-900" />
+        <input type="text" name="position" placeholder="직위" required
+          class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 placeholder-blue-300 text-blue-900" />
+        <input type="text" name="event" placeholder="행사명" required
+          class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 placeholder-blue-300 text-blue-900" />
+        <input type="date" name="date" required
+          class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900" />
+        <textarea name="message" placeholder="주요 메시지" required
+          class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 min-h-[100px] text-blue-900 placeholder-blue-300"></textarea>
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white font-bold py-3 rounded-xl shadow-md transition">
+          인사말씀 생성
+        </button>
+      </form>
+    </section>
+
+    <!-- 우측: 미리보기 출력 -->
+    <section class="bg-white/90 w-full md:w-1/2 p-6 rounded-2xl shadow-xl flex flex-col">
+      <h2 class="text-lg font-bold text-blue-800 mb-3 flex items-center">
+        <span class="mr-2">🎤</span> 인사말씀 미리보기
+      </h2>
+
+      <div id="speech-preview"
+          class="flex-1 w-full bg-blue-50 border border-blue-200 rounded-lg p-5 text-blue-900 text-[15px] leading-relaxed tracking-wide whitespace-pre-line overflow-auto shadow-inner">
+        생성된 인사말씀이 이곳에 표시됩니다.
+      </div>
+    </section>
+  </main>
+<script src="/static/js/greeting.js"></script>
+</body>
+</html>

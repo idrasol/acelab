@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>부처별 최신 뉴스 검색기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 min-h-screen">
+  <!-- 네비게이션 바 -->
+  <nav class="w-full bg-gradient-to-r from-blue-800 to-blue-600 shadow-lg border-b-2 border-white/40 fixed top-0 left-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+      <a href="index.html" class="text-white font-extrabold text-lg tracking-tight">AI 공공문서 서비스</a>
+      <ul class="flex space-x-4">
+        <li><a href="/static/press.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">보도자료 생성기</a></li>
+        <li><a href="/static/greeting.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">인사말씀 작성기</a></li>
+        <li><a href="/static/congrats.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">축사 작성기</a></li>
+        <li><a href="/static/news.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">부처별 최신 뉴스 검색기</a></li>
+        <li><a href="/static/chatbot.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">AI챗봇</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- 부처별 최신 뉴스 검색기 페이지 -->
+  <div class="max-w-2xl mx-auto mt-20 mb-12 bg-white/90 rounded-3xl shadow-2xl p-0 overflow-hidden">
+    <div class="bg-gradient-to-r from-blue-700 to-blue-500 p-8 text-center fade-in fade-in-delay-1">
+      <h1 class="text-3xl font-extrabold text-white drop-shadow mb-2 tracking-tight">부처별 최신 뉴스 검색기</h1>
+      <p class="text-blue-100 text-lg fade-in fade-in-delay-4">부처를 선택하면 관련 최신 뉴스를 한눈에 볼 수 있습니다.</p>
+    </div>
+    <div class="px-8 pt-8 pb-4 fade-in fade-in-delay-3">
+      <h3 class="text-base font-semibold text-blue-700 mb-3">부처 선택</h3>
+      <div class="flex flex-wrap gap-2" id="news-ministry-buttons">
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">기획재정부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">교육부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">과학기술정보통신부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">외교부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">통일부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">법무부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">국방부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">행정안전부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">국가보훈부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">문화체육관광부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">농림축산식품부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">산업통상자원부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">보건복지부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">환경부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">고용노동부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">여성가족부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">국토교통부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">해양수산부</button>
+        <button type="button" class="news-ministry-btn px-4 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-700 font-medium hover:bg-blue-200 hover:text-blue-900 hover:border-blue-400 transition">중소벤처기업부</button>
+      </div>
+    </div>
+    <div id="news-latest-list" class="my-8 mx-8 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl p-6 border border-blue-100 shadow-sm fade-in fade-in-delay-5">
+      <h3 class="text-base font-semibold text-blue-700 mb-2">최신 뉴스 리스트</h3>
+      <div id="news-list-content" class="text-blue-800">
+        <p class="text-blue-700 text-center">부처를 선택하면 관련 최신 뉴스를 10개 보여줍니다.</p>
+      </div>
+    </div>
+  </div>
+<script src="/static/js/press.js"></script>
+</body>
+</html> 

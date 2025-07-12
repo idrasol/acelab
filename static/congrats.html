@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 축사 작성기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 min-h-screen overflow-x-hidden">
+
+  <!-- 네비게이션 바 -->
+  <nav class="w-full bg-gradient-to-r from-blue-800 to-blue-600 shadow-lg border-b-2 border-white/40 fixed top-0 left-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+      <a href="index.html" class="text-white font-extrabold text-lg tracking-tight">AI 공공문서 서비스</a>
+      <ul class="flex space-x-4">
+        <li><a href="/static/press.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">보도자료 생성기</a></li>
+        <li><a href="/static/greeting.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">인사말씀 작성기</a></li>
+        <li><a href="/static/congrats.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">축사 작성기</a></li>
+        <li><a href="/static/news.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">부처별 최신 뉴스 검색기</a></li>
+        <li><a href="/static/chatbot.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">AI챗봇</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 타이틀 카드 -->
+  <div class="max-w-6xl mx-auto px-6 flex flex-col items-center py-8 mt-20 bg-gradient-to-r from-blue-700 to-blue-500 rounded-2xl shadow-xl border-2 border-white/70 mb-8">
+    <img src="/static/Republic_of_Korea.svg" alt="대한민국정부 로고"
+        class="w-20 h-20 rounded-full bg-white shadow mb-2 fade-in fade-in-delay-1" />
+    <h1 class="text-2xl md:text-3xl font-extrabold text-white drop-shadow tracking-tight mb-1 fade-in fade-in-delay-2">
+      AI 축사 작성기
+    </h1>
+    <p class="text-blue-100 text-sm md:text-lg fade-in fade-in-delay-3 text-center">
+      행사에 어울리는 축사를 쉽고 빠르게 작성하세요!
+    </p>
+  </div>
+
+  <!-- 본문 2분할 -->
+  <main class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
+
+      <!-- 좌측 입력 폼 -->
+      <section class="w-full md:w-1/2 bg-white/90 rounded-2xl shadow-xl p-6">
+        <form id="congrats-form" class="space-y-4">
+          <label class="block font-semibold text-blue-800">기관명</label>
+          <input type="text" name="org-name" placeholder="예: 국가공무원인재개발원" class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-300" />
+
+          <label class="block font-semibold text-blue-800">기관장 이름 및 직함</label>
+          <input type="text" name="org-leader" placeholder="예: 원장 김OO" class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-300" />
+
+          <label class="block font-semibold text-blue-800">행사명</label>
+          <input type="text" name="event-name" placeholder="예: 제3회 AI 활용 경진대회 시상식" class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-300" />
+
+          <label class="block font-semibold text-blue-800">행사 목적 및 성격</label>
+          <input type="text" name="event-purpose" placeholder="예: 창의적 AI 활용 역량을 발굴하고 격려" class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-300" />
+
+          <label class="block font-semibold text-blue-800">청중 대상</label>
+          <select name="audience" id="audience-select" class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900">
+            <option value="수상자 및 참가자">수상자 및 참가자</option>
+            <option value="공무원 및 유관 기관 관계자">공무원 및 유관 기관 관계자</option>
+            <option value="지역 주민 및 시민">지역 주민 및 시민</option>
+            <option value="학생 및 교육 관계자">학생 및 교육 관계자</option>
+            <option value="기업인 및 협력 파트너">기업인 및 협력 파트너</option>
+            <option value="기타">기타(직접입력)</option>
+          </select>
+          <input type="text" id="audience-etc-input" name="audience-etc" placeholder="직접 입력" class="mt-2 px-3 py-2 border border-blue-200 rounded bg-blue-50 text-blue-900 placeholder-blue-300 hidden" />
+
+          <label class="block font-semibold text-blue-800">문체 스타일</label>
+          <select name="style" id="style-select" class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900">
+            <option value="격식 있고 공손한 문체">격식 있고 공손한 문체</option>
+            <option value="따뜻하고 진심 어린 문체">따뜻하고 진심 어린 문체</option>
+            <option value="희망적이고 미래 지향적인 문체">희망적이고 미래 지향적인 문체</option>
+            <option value="간결하고 실용적인 문체">간결하고 실용적인 문체</option>
+            <option value="감성적이고 스토리를 담은 문체">감성적이고 스토리를 담은 문체</option>
+            <option value="기타">기타(직접입력)</option>
+          </select>
+          <input type="text" id="style-etc-input" name="style-etc" placeholder="직접 입력" class="mt-2 px-3 py-2 border border-blue-200 rounded bg-blue-50 text-blue-900 placeholder-blue-300 hidden" />
+
+          <label class="block font-semibold text-blue-800">분량</label>
+          <select name="length" id="length-select" class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900">
+            <option value="A4 1/2장(약 700자 내외)">A4 1/2장</option>
+            <option value="A4 1장(약 1,400자)">A4 1장</option>
+            <option value="A4 1.5장">A4 1.5장</option>
+            <option value="A4 2장">A4 2장</option>
+            <option value="기타">기타(직접입력)</option>
+          </select>
+          <input type="text" id="length-etc-input" name="length-etc" placeholder="직접 입력" class="mt-2 px-3 py-2 border border-blue-200 rounded bg-blue-50 text-blue-900 placeholder-blue-300 hidden" />
+
+          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white font-bold py-3 rounded-xl shadow-md transition">
+            축사 생성
+          </button>
+        </form>
+      </section>
+
+      <!-- 우측 미리보기 -->
+      <section class="bg-white/90 w-full md:w-1/2 p-6 rounded-2xl shadow-xl flex flex-col">
+      <h2 class="text-lg font-bold text-blue-800 mb-3 flex items-center">
+        <span class="mr-2">🎤</span> 축사 미리보기
+      </h2>
+
+      <div id="congrats-preview"
+          class="flex-1 w-full bg-blue-50 border border-blue-200 rounded-lg p-5 text-blue-900 text-[15px] leading-relaxed tracking-wide whitespace-pre-line overflow-auto shadow-inner">
+        생성된 축사가 이곳에 표시됩니다.
+      </div>
+    </section>
+
+    </div>
+  </main>
+
+<script src="/static/js/congrats.js"></script>
+</body>
+</html>

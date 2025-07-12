@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>부처별 생성형 AI 보도자료 작성 서비스</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    window.jsPDF = window.jspdf.jsPDF;
+  </script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 min-h-screen">
+  <!-- 네비게이션 바 -->
+  <nav class="w-full bg-gradient-to-r from-blue-800 to-blue-600 shadow-lg border-b-2 border-white/40 fixed top-0 left-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+      <a href="index.html" class="text-white font-extrabold text-lg tracking-tight">AI 공공문서 서비스</a>
+      <ul class="flex space-x-4">
+        <li><a href="/static/press.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">보도자료 생성기</a></li>
+        <li><a href="/static/greeting.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">인사말씀 작성기</a></li>
+        <li><a href="/static/congrats.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">축사 작성기</a></li>
+        <li><a href="/static/news.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">부처별 최신 뉴스 검색기</a></li>
+        <li><a href="/static/chatbot.html" class="text-blue-100 hover:text-white font-semibold px-3 py-1 rounded transition">AI챗봇</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 타이틀 카드 -->
+  <div class="max-w-6xl mx-auto px-6 flex flex-col items-center py-8 mt-20 bg-gradient-to-r from-blue-700 to-blue-500 rounded-2xl shadow-xl border-2 border-white/70 mb-8">
+    <img src="/static/Republic_of_Korea.svg" alt="대한민국정부 로고" class="w-20 h-20 rounded-full bg-white shadow mb-2 fade-in fade-in-delay-1" />
+    <h1 class="text-2xl md:text-3xl font-extrabold text-white drop-shadow tracking-tight mb-1 fade-in fade-in-delay-2">
+      부처별 생성형 AI 보도자료 작성 서비스
+    </h1>
+    <p class="text-blue-100 text-sm md:text-lg fade-in fade-in-delay-3 text-center">
+      간단한 입력만으로 공무원 보도자료를 쉽고 빠르게 생성하세요!
+    </p>
+  </div>
+
+  <!-- 본문 카드 -->
+  <main class="pb-10 px-2 max-w-6xl mx-auto w-full">
+    <div class="flex flex-col md:flex-row gap-8 w-full">
+      <!-- 좌측: 파일 업로드 영역 -->
+      <section class="bg-white/90 rounded-2xl shadow-xl p-6 w-full md:w-1/3 min-w-[260px] max-w-md flex flex-col">
+        <h2 class="text-lg font-bold text-blue-800 mb-4">📄 문서 추가 (PDF/HWP/DOCE)</h2>
+
+        <div class="relative w-full mb-3">
+          <label class="flex items-center justify-center gap-2 w-full px-4 py-3 border border-blue-300 bg-white hover:bg-blue-50 text-blue-700 rounded-xl font-semibold cursor-pointer transition duration-200">
+            <span>📁 파일 선택</span>
+            <input type="file" id="file-input" name="files" multiple accept=".pdf,.hwp,.hwpx,.docx,.txt" class="hidden" />
+          </label>
+        </div>
+
+        <button type="button" id="reset-files"
+          class="w-full mb-4 bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-2 rounded transition">
+          🔄 파일 목록 초기화
+        </button>
+
+        <div class="border-t border-blue-200 my-3"></div>
+
+        <div class="flex-1 overflow-auto">
+          <h3 class="text-blue-700 font-semibold mb-2 text-base">업로드된 파일 목록</h3>
+          <div id="file-list" class="space-y-3 text-blue-900 text-sm">
+            <span class="text-blue-400">아직 파일이 없습니다.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 우측: 입력 및 미리보기 -->
+      <section class="bg-white/90 rounded-2xl shadow-xl p-6 flex-1 flex flex-col min-w-[260px] w-full">
+        <form class="prompt-form space-y-4" id="press-form" enctype="multipart/form-data">
+          <div id="ministry-buttons-container" class="flex flex-wrap gap-2 mb-2"></div>
+          <input type="text" name="title" placeholder="보도자료 제목" required class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-300" />
+          <input type="text" name="author" placeholder="담당자" required class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-300" />
+          <input type="text" name="contact" placeholder="연락처" required class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-300" />
+          <input type="text" name="department" id="ministry-input" placeholder="부처명(선택)" readonly class="w-full px-4 py-3 border border-blue-100 bg-blue-100 rounded-xl text-blue-400 cursor-not-allowed" />
+          <textarea name="content" placeholder="핵심내용" required class="w-full px-4 py-3 border border-blue-200 rounded-xl bg-blue-50 min-h-[80px] text-blue-900 placeholder-blue-300"></textarea>
+          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-400 hover:from-blue-700 hover:to-blue-500 text-white font-bold py-3 rounded-xl shadow-md transition">
+            보도자료 생성
+          </button>
+        </form>
+
+        <!-- 추천 제목 -->
+        <div class="title-suggestions my-6 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl p-6 border border-blue-100 shadow-sm">
+          <h3 class="text-base font-semibold text-blue-700 mb-2">추천 보도자료 제목</h3>
+          <ul class="list-disc pl-5 text-blue-800 space-y-1">
+            <li>라트비아 대사, 동두천시 방문으로 양국 문화 교류 촉진</li>
+          </ul>
+        </div>
+
+        <!-- 미리보기 및 내보내기 -->
+        <div class="result-preview bg-blue-50 rounded-xl p-6 border border-blue-100 shadow mb-6">
+          <div id="preview-content" class="text-blue-900 whitespace-pre-line">(내용)</div>
+          <div class="flex flex-row gap-3 justify-end mt-4 mb-2">
+            <button id="export-txt" class="bg-gradient-to-r from-gray-200 to-gray-100 hover:from-gray-300 hover:to-gray-200 text-gray-800 font-semibold px-5 py-2 rounded-lg shadow transition">
+              <span class="inline-block align-middle mr-1">📝</span>TXT로 내보내기
+            </button>
+            <button id="export-docx" class="bg-gradient-to-r from-blue-500 to-blue-400 hover:from-blue-600 hover:to-blue-500 text-white font-semibold px-5 py-2 rounded-lg shadow transition">
+              <span class="inline-block align-middle mr-1">📄</span>Word로 내보내기
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 🔗 연결된 JS -->
+  <script src="/static/js/press.js"></script>
+</body>
+</html>
