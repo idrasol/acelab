@@ -2,11 +2,11 @@ from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from openai import OpenAI, OpenAIError
 from dotenv import load_dotenv
 from pathlib import Path
-from typing import List, Union, Optional
+from typing import List, Union
 import os
+import openai  # ✅ 최신 방식
 
 # --- 유틸 및 프롬프트
 from utils import ask_gpt, get_current_distribution_time
@@ -17,7 +17,8 @@ api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise RuntimeError("❌ OPENAI_API_KEY가 .env에 설정되어 있지 않습니다.")
 
-client = OpenAI(api_key=api_key)
+openai.api_key = api_key  # ✅ 클라이언트 객체 대신 직접 설정
+
 app = FastAPI()
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -60,12 +61,10 @@ async def generate_dummy(
     )
 
     try:
-        reply = ask_gpt(client, prompt)
+        reply = ask_gpt(prompt)  # ✅ client 제거
         return {"reply": reply}
-    except OpenAIError as oe:
-        raise HTTPException(status_code=502, detail="OpenAI API 호출 실패")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"서버 내부 오류: {e}")
+        raise HTTPException(status_code=500, detail=f"❌ GPT 응답 실패: {e}")
 
 @app.get("/health")
 def health_check():
