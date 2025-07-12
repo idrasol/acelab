@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
       previewContent.textContent = '⏳ GPT 생성 중...';
 
       try {
-        const res = await fetch(`https://3a400c992d08.ngrok-free.app/generate-with-pdf`, {
+        const res = await fetch(`${window.location.origin}/generate-with-pdf`, {
           method: 'POST',
           body: formData,
         });

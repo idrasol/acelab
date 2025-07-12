@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(speechForm);
 
       try {
-        const res = await fetch('https://3a400c992d08.ngrok-free.app/generate-greeting', {
+        const res = await fetch('/generate-greeting', {
           method: 'POST',
           body: formData,
         });

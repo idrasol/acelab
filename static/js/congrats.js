@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const formData = new FormData(congratsForm);
 
       try {
-        const res = await fetch('https://3a400c992d08.ngrok-free.app/generate-congrats', {
+        const res = await fetch('/generate-congrats', {
           method: 'POST',
           body: formData,
         });

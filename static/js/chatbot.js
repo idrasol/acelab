@@ -74,7 +74,7 @@ form.addEventListener("submit", function (e) {
   if (message) formData.append("message", message);
   selectedFiles.forEach(file => formData.append("files", file));
 
-  fetch("https://3a400c992d08.ngrok-free.app/api/chat", {
+  fetch("/api/chat", {
     method: "POST",
     body: formData,
   })
