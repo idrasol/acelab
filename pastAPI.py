@@ -70,7 +70,3 @@ async def generate_dummy(
 @app.get("/health")
 def health_check():
     return {"status": "running"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("pastAPI_test:app", host="127.0.0.1", port=5000, reload=True)
